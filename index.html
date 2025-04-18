@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Know Me Quiz</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #1f1c2c, #928dab);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .wrapper {
+      display: flex;
+      gap: 30px;
+      align-items: flex-start;
+    }
+
+    .quiz-container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+      width: 500px;
+      transition: transform 0.4s;
+      transform-style: preserve-3d;
+    }
+
+    .quiz-container:hover {
+      transform: rotateY(6deg) rotateX(3deg);
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #4b0082;
+      margin-bottom: 10px;
+    }
+
+    .question {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    .options {
+      list-style: none;
+      padding: 0;
+    }
+
+    .options li {
+      margin: 10px 0;
+    }
+
+    .options button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      background-color: #6a5acd;
+      color: white;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .options button:hover {
+      background-color: #5941a9;
+    }
+
+    .options button.selected {
+      background-color: #3f3f94;
+      outline: 2px solid #fff;
+    }
+
+    #confirm-btn, #restart-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #4b0082;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+
+    #confirm-btn:hover, #restart-btn:hover {
+      background-color: #3a006a;
+    }
+
+    #result {
+      font-size: 1rem;
+      margin-top: 20px;
+      color: #222;
+    }
+
+    .counter-box {
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 20px;
+      border-radius: 15px;
+      color: white;
+      font-size: 1.1rem;
+      min-width: 150px;
+      height: fit-content;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.1);
+    }
+
+    .counter-box span {
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+
+    .score-details {
+      margin-top: 20px;
+      font-size: 0.95rem;
+    }
+
+    .score-details div {
+      margin-bottom: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      background-color: #f3f3f3;
+    }
+
+    .correct {
+      color: green;
+    }
+
+    .wrong {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wrapper">
+    <div class="quiz-container" id="quiz">
+      <h1>If you know me, select correct answers 😎</h1>
+      <h2>Know Me Quiz</h2>
+      <div class="question" id="question">Loading...</div>
+      <ul class="options" id="options"></ul>
+      <button id="confirm-btn">Confirm</button>
+      <div id="result"></div>
+    </div>
+
+    <div class="counter-box">
+      Question <span id="current">1</span> / <span id="total">10</span>
+    </div>
+  </div>
+
+  <script>
+    const quizData = [
+      { question: "What is my favorite food?", options: ["Biryani", "Veg Meals", "Parotta", "Chicken Rice"], answer: "Biryani" },
+      { question: "What is my favorite ice cream?", options: ["Butterscotch", "Vanilla", "Strawberry", "Chocolate"], answer: "Strawberry" },
+      { question: "What is my favorite fruit?", options: ["Apple", "Banana", "Butterfruit", "Mango"], answer: "Mango" },
+      { question: "What is my favorite sport?", options: ["Cricket", "Hockey", "Volleyball", "Throwball"], answer: "Volleyball" },
+      { question: "What do I like to do in free time?", options: ["Sleep", "Using Phone", "Eating", "Outing"], answer: "Sleep" },
+      { question: "What is my favorite car brand?", options: ["Benz", "BMW", "Porsche", "Audi"], answer: "BMW" },
+      { question: "What is my favorite model in BMW?", options: ["BMW M4", "BMW M3", "BMW M340i", "BMW M2"], answer: "BMW M4" },
+      { question: "What is my favorite dessert?", options: ["Donut", "Ice Cake", "Cupcake", "Cake"], answer: "Ice Cake" },
+      { question: "What is my favorite snack?", options: ["French Fries", "Burger", "Samosa", "Pani Puri"], answer: "Burger" },
+      { question: "What is my taste in girls?", options: ["Indian Girls", "Korean Girls", "American Girls", "Japanese Girls"], answer: "Indian Girls" }
+    ];
+
+    const questionEl = document.getElementById("question");
+    const optionsEl = document.getElementById("options");
+    const confirmBtn = document.getElementById("confirm-btn");
+    const resultEl = document.getElementById("result");
+    const currentCounter = document.getElementById("current");
+    const totalCounter = document.getElementById("total");
+
+    let currentQuestion = 0;
+    let score = 0;
+    let selectedOption = null;
+    let answersLog = [];
+
+    totalCounter.textContent = quizData.length;
+
+    function loadQuestion() {
+      const q = quizData[currentQuestion];
+      questionEl.textContent = q.question;
+      optionsEl.innerHTML = "";
+      selectedOption = null;
+      confirmBtn.disabled = false;
+      resultEl.textContent = "";
+
+      q.options.forEach(option => {
+        const li = document.createElement("li");
+        const btn = document.createElement("button");
+        btn.textContent = option;
+        btn.onclick = () => {
+          Array.from(optionsEl.querySelectorAll("button")).forEach(b => b.classList.remove("selected"));
+          btn.classList.add("selected");
+          selectedOption = option;
+        };
+        li.appendChild(btn);
+        optionsEl.appendChild(li);
+      });
+
+      currentCounter.textContent = currentQuestion + 1;
+    }
+
+    confirmBtn.onclick = () => {
+      if (!selectedOption) {
+        alert("Please select an option before confirming!");
+        return;
+      }
+
+      const correct = quizData[currentQuestion].answer;
+      if (selectedOption === correct) score++;
+
+      answersLog.push({
+        q: quizData[currentQuestion].question,
+        yourAnswer: selectedOption,
+        correctAnswer: correct
+      });
+
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        showResult();
+      }
+    };
+
+    function showResult() {
+      questionEl.textContent = "Quiz Completed!";
+      optionsEl.innerHTML = "";
+      confirmBtn.style.display = "none";
+
+      resultEl.innerHTML = `<p>🎯 You got <strong>${score}</strong> out of <strong>${quizData.length}</strong> correct!</p>`;
+
+      const details = document.createElement("div");
+      details.className = "score-details";
+
+      answersLog.forEach((entry, index) => {
+        const div = document.createElement("div");
+        div.innerHTML = `<strong>Q${index + 1}:</strong> ${entry.q}<br>
+                         <span class="${entry.yourAnswer === entry.correctAnswer ? 'correct' : 'wrong'}">
+                         Your answer: ${entry.yourAnswer} <br>
+                         Correct answer: ${entry.correctAnswer}
+                         </span>`;
+        details.appendChild(div);
+      });
+
+      resultEl.appendChild(details);
+
+      const restartBtn = document.createElement("button");
+      restartBtn.id = "restart-btn";
+      restartBtn.textContent = "Restart Quiz";
+      restartBtn.onclick = () => {
+        currentQuestion = 0;
+        score = 0;
+        answersLog = [];
+        confirmBtn.style.display = "inline-block";
+        loadQuestion();
+        resultEl.innerHTML = "";
+      };
+      resultEl.appendChild(restartBtn);
+    }
+
+    loadQuestion();
+  </script>
+
+</body>
+</html>
