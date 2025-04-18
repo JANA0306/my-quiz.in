@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Explore global tours with Tourist Guide India. Book your dream vacation today!">
+    <title>international Tourist Guide </title>
+    <link rel="shortcut icon" href="faficon.png" type="image/x-icon">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            overflow-x: hidden;
+        }
+
+        
+        header {
+            background: linear-gradient(135deg, #ff6f61, #d83f87);
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header h1 {
+            font-size: 2.2em;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Main Content Container */
+        .content {
+            min-height: calc(100vh - 140px);
+            padding: 30px;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin: 0 auto;
+            max-width: 1200px;
+            border-radius: 15px;
+            overflow: hidden;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('background pic.webp') no-repeat center/cover;
+            opacity: 0.75;
+            z-index: -1;
+        }
+
+        .hero-content {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 700px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            animation: slideUp 1s ease forwards;
+        }
+
+        .hero-content h2 {
+            color: #2d3436;
+            font-size: 2.8em;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            color: #636e72;
+            font-size: 1.2em;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .hero-content a {
+            background: #ff6f61;
+            color: white;
+            padding: 14px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .hero-content a:hover {
+            background: #d83f87;
+            transform: scale(1.05);
+        }
+
+        /* About Section */
+        .about-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .country-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .country-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .country-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .country-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .country-card h3 {
+            color: #2d3436;
+            font-size: 1.3em;
+        }
+
+        .places-section {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .places-section.active {
+            display: block;
+        }
+
+        .place-card {
+            background: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .place-card:hover {
+            transform: translateX(10px);
+        }
+
+        .place-card img {
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .place-card h4 {
+            color: #2d3436;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .place-card p {
+            color: #636e72;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        /* Packages Section */
+        .packages-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .tour-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .tour-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .tour-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .tour-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .tour-card h3 {
+            padding: 15px;
+            color: #2d3436;
+            font-size: 1.5em;
+        }
+
+        .tour-card p {
+            padding: 0 15px;
+            color: #636e72;
+            font-size: 0.95em;
+        }
+
+        .tour-card .price {
+            padding: 10px 15px;
+            color: #ff6f61;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .tour-card button {
+            background: #ff6f61;
+            color: white;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 0 0 10px 10px;
+            transition: background 0.3s ease;
+        }
+
+        .tour-card button:hover {
+            background: #d83f87;
+        }
+
+        /* Login and Register Sections */
+        .login-section, .register-section {
+            max-width: 400px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .login-section h2, .register-section h2 {
+            color: #2d3436;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .login-section label, .register-section label {
+            display: block;
+            color: #636e72;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .login-section input, .register-section input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #dfe6e9;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border 0.3s ease;
+        }
+
+        .login-section input:focus, .register-section input:focus {
+            border-color: #ff6f61;
+            outline: none;
+        }
+
+        .login-section button, .register-section button {
+            width: 100%;
+            padding: 14px;
+            background: #ff6f61;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .login-section button:hover, .register-section button:hover {
+            background: #d83f87;
+        }
+
+        .login-section p, .register-section p {
+            text-align: center;
+            color: #636e72;
+            margin-top: 15px;
+        }
+
+        .login-section a, .register-section a {
+            color: #ff6f61;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .login-section a:hover, .register-section a:hover {
+            text-decoration: underline;
+        }
+
+        
+        .dashboard-section {
+            max-width: 800px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .dashboard-section h2 {
+            color: #2d3436;
+            margin-bottom: 20px;
+        }
+
+        .dashboard-section p {
+            color: #636e72;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        
+        .hidden {
+            display: none;
+        }
+
+        
+        footer {
+            background: #2d3436;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 20px;
+                padding: 15px 20px;
+            }
+
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            nav {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav a {
+                font-size: 1em;
+                padding: 6px 12px;
+            }
+
+            .hero-section {
+                height: 450px;
+            }
+
+            .hero-content {
+                padding: 25px;
+                max-width: 90%;
+            }
+
+            .hero-content h2 {
+                font-size: 2em;
+            }
+
+            .hero-content p {
+                font-size: 1em;
+            }
+
+            .login-section, .register-section, .dashboard-section {
+                margin: 20px;
+                padding: 20px;
+            }
+
+            .country-card {
+                width: 150px;
+            }
+
+            .place-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .place-card img {
+                width: 100%;
+                height: auto;
+            }
+
+            .tour-card {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-content {
+                padding: 20px;
+            }
+
+            .hero-content h2 {
+                font-size: 1.6em;
+            }
+
+            .hero-content a {
+                padding: 10px 20px;
+            }
+
+            .about-section, .packages-section {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Tourist Guide India</h1>
+        <nav>
+            <a onclick="showSection('home')">Home</a>
+            <a onclick="showSection('about')">About</a>
+            <a onclick="showSection('packages')">Packages</a>
+            <a onclick="showSection('login')" id="loginLink">Login</a>
+            <a onclick="showSection('register')" id="registerLink">Register</a>
+            <a onclick="showSection('dashboard')" id="dashboardLink" class="hidden">Dashboard</a>
+            <a onclick="logout()" id="logoutLink" class="hidden">Logout</a>
+        </nav>
+    </header>
+
+    <div class="content">
+        
+        <div id="home" class="hero-section">
+            <div class="hero-content">
+                <h2>Discover Global Wonders</h2>
+                <p>Explore the world’s most iconic destinations with us. From India’s Taj Mahal to Japan’s Mount Fuji, our curated tours offer adventure, culture, and memories. Start your journey today!</p>
+                <a onclick="showSection('packages')">Explore Packages</a>
+            </div>
+        </div>
+
+        
+        <div id="about" class="about-section hidden">
+            <h2>Explore Tourist Places</h2>
+            <div class="country-list">
+                <div class="country-card" onclick="showPlaces('india')">
+                    <img src="india.webp" alt="India">
+                    <h3>India</h3>
+                </div>
+                <div class="country-card" onclick="showPlaces('germany')">
+                    <img src="germany.webp" alt="Germany">
+                    <h3>Germany</h3>
+                </div>
+                <div class="country-card" onclick="showPlaces('russia')">
+                    <img src="russia.webp" alt="Russia">
+                    <h3>Russia</h3>
+                </div>
+                <div class="country-card" onclick="showPlaces('america')">
+                    <img src="amarica.webp" alt="America">
+                    <h3>America</h3>
+                </div>
+                <div class="country-card" onclick="showPlaces('dubai')">
+                    <img src="dubai.webp" alt="Dubai">
+                    <h3>Dubai</h3>
+                </div>
+                <div class="country-card" onclick="showPlaces('canada')">
+                    <img src="canada.webp" alt="Canada">
+                    <h3>Canada</h3>
+                </div>
+                <div class="country-card" onclick="showPlaces('srilanka')">
+                    <img src="srilanka.webp" alt="Sri Lanka">
+                    <h3>Sri Lanka</h3>
+                </div>
+                <div class="country-card" onclick="showPlaces('malaysia')">
+                    <img src="malayasia.webp" alt="Malaysia">
+                    <h3>Malaysia</h3>
+                </div>
+                <div class="country-card" onclick="showPlaces('thailand')">
+                    <img src="Thailand.webp" alt="Thailand">
+                    <h3>Thailand</h3>
+                </div>
+                <div class="country-card" onclick="showPlaces('china')">
+                    <img src="china.webp" alt="China">
+                    <h3>China</h3>
+                </div>
+                <div class="country-card" onclick="showPlaces('japan')">
+                    <img src="china.webp" alt="Japan">
+                    <h3>Japan</h3>
+                </div>
+                <div class="country-card" onclick="showPlaces('africa')">
+                    <img src="africa.webp" alt="Africa">
+                    <h3>Africa</h3>
+                </div>
+            </div>
+
+            
+            <div id="india-places" class="places-section">
+                <h3>Top Places in India</h3>
+                <div class="place-card">
+                    <img src="india.webp" alt="Taj Mahal">
+                    <div>
+                        <h4>Taj Mahal</h4>
+                        <p>An iconic marble mausoleum in Agra, symbolizing eternal love.</p>
+                    </div>
+                </div>
+                <div class="place-card">
+                    <img src="india 2.webp" alt="Jaipur">
+                    <h4>Jaipur</h4>
+                    <p>The Pink City, known for its palaces and vibrant culture.</p>
+                </div>
+                <div class="place-card">
+                    <img src="kerala.webp" alt="Kerala">
+                    <h4>Kerala Backwaters</h4>
+                    <p>Serene waterways and lush greenery in southern India.</p>
+                </div>
+            </div>
+            <div id="germany-places" class="places-section">
+                <h3>Top Places in Germany</h3>
+                <div class="place-card">
+                    <img src="Neuschwanstein.webp" alt="Neuschwanstein">
+                    <h4>Neuschwanstein Castle</h4>
+                    <p>A fairy-tale castle in Bavaria, inspiring Disney’s logo.</p>
+                </div>
+                <div class="place-card">
+                    <img src="Berlin.webp" alt="Berlin">
+                    <h4>Berlin Wall</h4>
+                    <p>Historic remnants symbolizing Germany’s division and unity.</p>
+                </div>
+                <div class="place-card">
+                    <img src="Cologne.webp" alt="Cologne">
+                    <h4>Cologne Cathedral</h4>
+                    <p>A Gothic masterpiece and UNESCO World Heritage Site.</p>
+                </div>
+            </div>
+            <div id="russia-places" class="places-section">
+                <h3>Top Places in Russia</h3>
+                <div class="place-card">
+                    <img src="Red Square.webp" alt="Red Square">
+                    <h4>Red Square</h4>
+                    <p>Moscow’s historic heart, home to the Kremlin and Saint Basil’s.</p>
+                </div>
+                <div class="place-card">
+                    <img src="Hermitage.webp" alt="Hermitage">
+                    <h4>Hermitage Museum</h4>
+                    <p>One of the world’s largest art museums in Saint Petersburg.</p>
+                </div>
+                <div class="place-card">
+                    <img src="Lake Baikal.webp" alt="Lake Baikal">
+                    <h4>Lake Baikal</h4>
+                    <p>The world’s deepest lake, a natural wonder in Siberia.</p>
+                </div>
+            </div>
+            <div id="america-places" class="places-section">
+                <h3>Top Places in America</h3>
+                <div class="place-card">
+                    <img src="Grand Canyon.webp" alt="Grand Canyon">
+                    <h4>Grand Canyon</h4>
+                    <p>A breathtaking natural wonder carved by the Colorado River.</p>
+                </div>
+                <div class="place-card">
+                    <img src="Statue of Liberty.webp" alt="Statue of Liberty">
+                    <h4>Statue of Liberty</h4>
+                    <p>Symbol of freedom in New York Harbor.</p>
+                </div>
+                <div class="place-card">
+                    <img src="Yellowstone.webp" alt="Yellowstone">
+                    <h4>Yellowstone National Park</h4>
+                    <p>Famous for geysers and diverse wildlife.</p>
+                </div>
+            </div>
+            <div id="dubai-places" class="places-section">
+                <h3>Top Places in Dubai</h3>
+                <div class="place-card">
+                    <img src="Burj Khalifa.jpg" alt="Burj Khalifa">
+                    <h4>Burj Khalifa</h4>
+                    <p>The world’s tallest building with stunning city views.</p>
+                </div>
+                <div class="place-card">
+                    <img src="Desert Safari.jpg" alt="Desert Safari">
+                    <h4>Desert Safari</h4>
+                    <p>Thrilling dune bashing and cultural experiences.</p>
+                </div>
+                <div class="place-card">
+                    <img src="Dubai Fountain.jpg" alt="Dubai Fountain">
+                    <h4>Dubai Fountain</h4>
+                    <p>A mesmerizing water and light show.</p>
+                </div>
+            </div>
+            <div id="canada-places" class="places-section">
+                <h3>Top Places in Canada</h3>
+                <div class="place-card">
+                    <img src="Niagara Falls.jpg" alt="Niagara Falls">
+                    <h4>Niagara Falls</h4>
+                    <p>Iconic waterfalls straddling the US-Canada border.</p>
+                </div>
+                <div class="place-card">
+                    <img src="Banff National Park.jpg" alt="Banff">
+                    <h4>Banff National Park</h4>
+                    <p>Stunning Rocky Mountains and turquoise lakes.</p>
+                </div>
+                <div class="place-card">
+                    <img src="Vancouver" alt="Vancouver">
+                    <h4>Vancouver</h4>
+                    <p>A vibrant city with nature and culture.</p>
+                </div>
+            </div>
+            <div id="srilanka-places" class="places-section">
+                <h3>Top Places in Sri Lanka</h3>
+                <div class="place-card">
+                    <img src="Sigiriya Rock.jpg" alt="Sigiriya">
+                    <h4>Sigiriya Rock</h4>
+                    <p>Ancient rock fortress with frescoes and views.</p>
+                </div>
+                <div class="place-card">
+                    <img src="Ella.jpg" alt="Ella">
+                    <h4>Ella</h4>
+                    <p>Scenic hills and tea plantations.</p>
+                </div>
+                <div class="place-card">
+                    <img src="Galle Fort.jpg" alt="Galle">
+                    <h4>Galle Fort</h4>
+                    <p>Colonial-era fort by the sea.</p>
+                </div>
+            </div>
+            <div id="malaysia-places" class="places-section">
+                <h3>Top Places in Malaysia</h3>
+                <div class="place-card">
+                    <img src="Petronas Towers.jpg" alt="Petronas Towers">
+                    <h4>Petronas Towers</h4>
+                    <p>Iconic twin skyscrapers in Kuala Lumpur.</p>
+                </div>
+                <div class="place-card">
+                    <img src="Vancouver.jpg" alt="Borneo">
+                    <h4>Borneo Rainforest</h4>
+                    <p>Rich biodiversity and orangutan sanctuaries.</p>
+                </div>
+                <div class="place-card">
+                    <img src="Langkawi.jpg" alt="Langkawi">
+                    <h4>Langkawi</h4>
+                    <p>Pristine beaches and cable car views.</p>
+                </div>
+            </div>
+            <div id="thailand-places" class="places-section">
+                <h3>Top Places in Thailand</h3>
+                <div class="place-card">
+                    <img src="Grand Palace.jpg" alt="Bangkok">
+                    <h4>Grand Palace</h4>
+                    <p>Ornate royal complex in Bangkok.</p>
+                </div>
+                <div class="place-card">
+                    <img src="Phi Phi Islands.jpg" alt="Phi Phi">
+                    <h4>Phi Phi Islands</h4>
+                    <p>Crystal waters and limestone cliffs.</p>
+                </div>
+                <div class="place-card">
+                    <img src="Chiang Mai.jpg" alt="Chiang Mai">
+                    <h4>Chiang Mai</h4>
+                    <p>Temples and night markets in the north.</p>
+                </div>
+            </div>
+            <div id="china-places" class="places-section">
+                <h3>Top Places in China</h3>
+                <div class="place-card">
+                    <img src="Great Wall.jpg" alt="Great Wall">
+                    <h4>Great Wall</h4>
+                    <p>Ancient fortification spanning thousands of miles.</p>
+                </div>
+                <div class="place-card">
+                    <img src="Forbidden City.jpg" alt="Forbidden City">
+                    <h4>Forbidden City</h4>
+                    <p>Imperial palace complex in Beijing.</p>
+                </div>
+                <div class="place-card">
+                    <img src="Yangshuo.jpg" alt="Yangshuo">
+                    <h4>Yangshuo</h4>
+                    <p>Picturesque karst landscapes and rivers.</p>
+                </div>
+            </div>
+            <div id="japan-places" class="places-section">
+                <h3>Top Places in Japan</h3>
+                <div class="place-card">
+                    <img src="Mount Fuji.jpg" alt="Mount Fuji">
+                    <h4>Mount Fuji</h4>
+                    <p>Japan’s iconic snow-capped volcano.</p>
+                </div>
+                <div class="place-card">
+                    <img src="Kyoto.jpg" alt="Kyoto">
+                    <h4>Kyoto</h4>
+                    <p>Historic temples and cherry blossoms.</p>
+                </div>
+                <div class="place-card">
+                    <img src="Tokyo.jpg" alt="Tokyo">
+                    <h4>Tokyo</h4>
+                    <p>Vibrant metropolis with culture and tech.</p>
+                </div>
+            </div>
+            <div id="africa-places" class="places-section">
+                <h3>Top Places in Africa</h3>
+                <div class="place-card">
+                    <img src="Serengeti.jpg" alt="Serengeti">
+                    <h4>Serengeti</h4>
+                    <p>Famous for wildlife and the Great Migration.</p>
+                </div>
+                <div class="place-card">
+                    <img src="Egyptian Pyramids.jpg" alt="Pyramids">
+                    <h4>Egyptian Pyramids</h4>
+                    <p>Ancient wonders in Giza.</p>
+                </div>
+                <div class="place-card">
+                    <img src="Cape Town.jpg" alt="Cape Town">
+                    <h4>Cape Town</h4>
+                    <p>Stunning city with Table Mountain.</p>
+                </div>
+            </div>
+        </div>
+
+        
+        <div id="packages" class="packages-section hidden">
+            <h2>Tour Packages</h2>
+            <div class="tour-container">
+                <div class="tour-card">
+                    <img src="india.webp" alt="India">
+                    <h3>India Adventure</h3>
+                    <p>Explore Taj Mahal, Jaipur, and Kerala’s backwaters.</p>
+                    <div class="price">₹79,999</div>
+                    <button onclick="bookTour('India Adventure')">Book Now</button>
+                </div>
+                <div class="tour-card">
+                    <img src="germany.webp" alt="Germany">
+                    <h3>Germany Heritage</h3>
+                    <p>Visit Neuschwanstein, Berlin, and Cologne.</p>
+                    <div class="price">€999</div>
+                    <button onclick="bookTour('Germany Heritage')">Book Now</button>
+                </div>
+                <div class="tour-card">
+                    <img src="russia.webp" alt="Russia">
+                    <h3>Russia Explorer</h3>
+                    <p>Discover Moscow, Saint Petersburg, and Lake Baikal.</p>
+                    <div class="price">₽89,999</div>
+                    <button onclick="bookTour('Russia Explorer')">Book Now</button>
+                </div>
+                <div class="tour-card">
+                    <img src="amarica.webp" alt="America">
+                    <h3>American Dream</h3>
+                    <p>Tour Grand Canyon, New York, and Yellowstone.</p>
+                    <div class="price">$1,299</div>
+                    <button onclick="bookTour('American Dream')">Book Now</button>
+                </div>
+                <div class="tour-card">
+                    <img src="dubai.webp" alt="Dubai">
+                    <h3>Dubai Extravaganza</h3>
+                    <p>Experience Burj Khalifa, Desert Safari, and Dubai Fountain.</p>
+                    <div class="price">د.إ 4,999</div>
+                    <button onclick="bookTour('Dubai Extravaganza')">Book Now</button>
+                </div>
+                <div class="tour-card">
+                    <img src="canada.webp" alt="Canada">
+                    <h3>Canada Wilderness</h3>
+                    <p>Visit Niagara Falls, Banff, and Vancouver.</p>
+                    <div class="price">C$ 1,799</div>
+                    <button onclick="bookTour('Canada Wilderness')">Book Now</button>
+                </div>
+                <div class="tour-card">
+                    <img src="srilanka.webp" alt="Sri Lanka">
+                    <h3>Sri Lanka Serenity</h3>
+                    <p>Explore Sigiriya, Ella, and Galle Fort.</p>
+                    <div class="price">௹ 199,999</div>
+                    <button onclick="bookTour('Sri Lanka Serenity')">Book Now</button>
+                </div>
+                <div class="tour-card">
+                    <img src="malayasia.webp" alt="Malaysia">
+                    <h3>Malaysia Magic</h3>
+                    <p>Discover Petronas Towers, Borneo, and Langkawi.</p>
+                    <div class="price">RM 3,999</div>
+                    <button onclick="bookTour('Malaysia Magic')">Book Now</button>
+                </div>
+                <div class="tour-card">
+                    <img src="Thailand.webp" alt="Thailand">
+                    <h3>Thailand Bliss</h3>
+                    <p>Tour Bangkok, Phi Phi, and Chiang Mai.</p>
+                    <div class="price">฿ 39,999</div>
+                    <button onclick="bookTour('Thailand Bliss')">Book Now</button>
+                </div>
+                <div class="tour-card">
+                    <img src="china.webp" alt="China">
+                    <h3>China Odyssey</h3>
+                    <p>Visit Great Wall, Forbidden City, and Yangshuo.</p>
+                    <div class="price">¥ 8,999</div>
+                    <button onclick="bookTour('China Odyssey')">Book Now</button>
+                </div>
+                <div class="tour-card">
+                    <img src="japan.webp" alt="Japan">
+                    <h3>Japan Journey</h3>
+                    <p>Explore Mount Fuji, Kyoto, and Tokyo.</p>
+                    <div class="price">¥149,999</div>
+                    <button onclick="bookTour('Japan Journey')">Book Now</button>
+                </div>
+                <div class="tour-card">
+                    <img src="africa.webp" alt="Africa">
+                    <h3>Africa Safari</h3>
+                    <p>Discover Serengeti, Pyramids, and Cape Town.</p>
+                    <div class="price">$1,499</div>
+                    <button onclick="bookTour('Africa Safari')">Book Now</button>
+                </div>
+            </div>
+        </div>
+
+       
+        <div id="login" class="login-section hidden">
+            <h2>Login</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <label for="login-email">Email</label>
+                <input type="email" id="login-email" required>
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" required>
+                <button type="submit">Login</button>
+            </form>
+            <p>Don't have an account? <a onclick="showSection('register')">Register here</a></p>
+        </div>
+
+        
+        <div id="register" class="register-section hidden">
+            <h2>Register</h2>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <label for="register-name">Full Name</label>
+                <input type="text" id="register-name" required>
+                <label for="register-email">Email</label>
+                <input type="email" id="register-email" required>
+                <label for="register-password">Password</label>
+                <input type="password" id="register-password" required>
+                <label for="confirm-password">Confirm Password</label>
+                <input type="password" id="confirm-password" required>
+                <button type="submit">Register</button>
+            </form>
+            <p>Already have an account? <a onclick="showSection('login')">Login here</a></p>
+        </div>
+
+        
+        <div id="dashboard" class="dashboard-section hidden">
+            <h2>Welcome to Your Dashboard</h2>
+            <p>View your booked tours and manage your travel plans below.</p>
+            <div id="booked-tours"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Tourist Guide India. All rights reserved.</p>
+    </footer>
+
+    <script>
+       
+        function showSection(sectionId) {
+            document.querySelectorAll('.content > div').forEach(div => {
+                div.classList.add('hidden');
+            });
+            document.getElementById(sectionId).classList.remove('hidden');
+            if (sectionId === 'about') {
+                showPlaces('india'); 
+            }
+        }
+
+        
+        function showPlaces(countryId) {
+            document.querySelectorAll('.places-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(`${countryId}-places`).classList.add('active');
+        }
+
+       
+        let isLoggedIn = false;
+        let bookedTours = [];
+
+        
+        function updateNav() {
+            document.getElementById('loginLink').classList.toggle('hidden', isLoggedIn);
+            document.getElementById('registerLink').classList.toggle('hidden', isLoggedIn);
+            document.getElementById('dashboardLink').classList.toggle('hidden', !isLoggedIn);
+            document.getElementById('logoutLink').classList.toggle('hidden', !isLoggedIn);
+        }
+
+        
+        function handleLogin(event) {
+            event.preventDefault();
+            isLoggedIn = true;
+            updateNav();
+            alert("Login successful!");
+            showSection('dashboard');
+            displayBookedTours();
+        }
+
+        
+        function handleRegister(event) {
+            event.preventDefault();
+            const password = document.getElementById('register-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+            alert("Registration successful! Please login.");
+            showSection('login');
+        }
+
+        
+        function logout() {
+            isLoggedIn = false;
+            bookedTours = [];
+            updateNav();
+            alert("Logged out successfully!");
+            showSection('home');
+        }
+
+        
+        function bookTour(tourName) {
+            if (!isLoggedIn) {
+                alert("Please login to book a tour!");
+                showSection('login');
+                return;
+            }
+            const prices = {
+                'India Adventure': '₹79,999',
+                'Germany Heritage': '€999',
+                'Russia Explorer': '₽89,999',
+                'American Dream': '$1,299',
+                'Dubai Extravaganza': 'AED 4,999',
+                'Canada Wilderness': 'CAD 1,799',
+                'Sri Lanka Serenity': 'LKR 199,999',
+                'Malaysia Magic': 'MYR 3,999',
+                'Thailand Bliss': 'THB 39,999',
+                'China Odyssey': 'CNY 8,999',
+                'Japan Journey': '¥149,999',
+                'Africa Safari': '$1,499'
+            };
+            bookedTours.push({
+                name: tourName,
+                price: prices[tourName],
+                description: `Booked tour: ${tourName}`
+            });
+            alert(`${tourName} booked successfully!`);
+            showSection('dashboard');
+            displayBookedTours();
+        }
+
+        
+        function displayBookedTours() {
+            const toursContainer = document.getElementById('booked-tours');
+            toursContainer.innerHTML = '';
+            if (bookedTours.length === 0) {
+                toursContainer.innerHTML = '<p>No tours booked yet.</p>';
+                return;
+            }
+            bookedTours.forEach(tour => {
+                toursContainer.innerHTML += `
+                    <div class="tour-card">
+                        <img src="https://source.unsplash.com/150x100/?${tour.name.split(' ')[0]}" alt="${tour.name}">
+                        <div>
+                            <h3>${tour.name}</h3>
+                            <p>${tour.description}</p>
+                            <p class="price">${tour.price}</p>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // Initial Setup
+        document.getElementById('loginLink').onclick = () => showSection('login');
+        document.getElementById('registerLink').onclick = () => showSection('register');
+        document.getElementById('dashboardLink').onclick = () => showSection('dashboard');
+        showSection('home');
+    </script>
+</body>
+</html>
